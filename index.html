@@ -7032,4 +7032,119 @@ push('assistant','Pronto','<p>Chat 13-Blocos iniciado. Escreva sua intenção e 
     });
   })();
   </script>
+
+<script id="voice-key-normalize-patch">
+(function(){
+  // Utilitários
+  const LS = {
+    get(k,d){ try{ const v = localStorage.getItem(k); return v? JSON.parse(v): d }catch{ return d } },
+    set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)) }catch{} },
+    raw(k){ return localStorage.getItem(k)||'' }
+  };
+  const CAP = (s)=> (s||'').charAt(0).toUpperCase() + (s||'').slice(1).toLowerCase();
+  const BASE = (file)=> String(file||'').replace(/\.html$/i,'').toLowerCase();
+
+  // 1) Migração única: *.html  -> NomeCapitalizado
+  function migrateVoices(){
+    const saved = LS.get('infodose:voices', {}) || {};
+    let changed = false;
+    Object.keys(saved).forEach(k=>{
+      if (/\.html$/i.test(k)) {
+        const cap = CAP(BASE(k));
+        // Se ainda não existe a chave capitalizada, copie o valor
+        if (!saved[cap]) { saved[cap] = saved[k]; changed = true; }
+      }
+    });
+    // Opcional: mantenha também o formato *.html para retro-compatibilidade
+    if (changed) LS.set('infodose:voices', saved);
+  }
+
+  // 2) Hook na UI de vozes: quando usuário trocar uma voz,
+  //    salve nos dois formatos: "Atlas" e "atlas.html"
+  function bindVoicesWrap(){
+    const wrap = document.getElementById('voicesWrap');
+    if (!wrap || wrap.__voiceKeyHooked) return;
+    wrap.__voiceKeyHooked = true;
+    wrap.addEventListener('change', (ev)=>{
+      const sel = ev.target;
+      if (!(sel && sel.tagName === 'SELECT')) return;
+      // suba ao <details> e leia o <summary> (mostrar "Atlas", "Nova", …)
+      const details = sel.closest('details');
+      const summary = details && details.querySelector('summary');
+      const baseCap = summary ? String(summary.textContent||'').trim() : '';
+      if (!baseCap) return;
+      const base = BASE(baseCap);
+      const fileKey = base + '.html';
+      const saved = LS.get('infodose:voices', {}) || {};
+      saved[baseCap] = sel.value;    // "Atlas"
+      saved[fileKey] = sel.value;    // "atlas.html" (legado)
+      LS.set('infodose:voices', saved);
+    }, true); // capture
+  }
+
+  // 3) Falar pelo arquétipo: use NomeCapitalizado e caia para *.html se preciso
+  function pickVoiceForKey(voices, saved, keyCap){
+    const fileKey = BASE(keyCap) + '.html';
+    let name = (saved && (saved[keyCap] || saved[fileKey])) || '';
+    // fallback: primeira voz PT/EN disponível
+    let v = (name && voices.find(x=>x.name === name)) ||
+            voices.find(x=>x.lang && (x.lang.toLowerCase().startsWith('pt') || x.lang.toLowerCase().startsWith('en'))) ||
+            voices[0];
+    return v || null;
+  }
+
+  // 3a) Patch não-destrutivo de speakArchetype
+  if (typeof window.speakArchetype === 'function') {
+    const _orig = window.speakArchetype;
+    window.speakArchetype = function(name){
+      try {
+        const archCap = CAP(String(name||''));
+        const voices = speechSynthesis.getVoices();
+        const saved  = LS.get('infodose:voices', {}) || {};
+        const v = pickVoiceForKey(voices, saved, archCap);
+        if (v) {
+          const u = new SpeechSynthesisUtterance(`Olá, eu sou ${archCap}`);
+          u.voice = v; speechSynthesis.cancel(); speechSynthesis.speak(u); return;
+        }
+      } catch(e) {}
+      // fallback para comportamento antigo
+      return _orig.apply(this, arguments);
+    };
+  }
+
+  // 3b) Patch não-destrutivo de speakWithActiveArch
+  if (typeof window.speakWithActiveArch === 'function') {
+    const _orig2 = window.speakWithActiveArch;
+    window.speakWithActiveArch = function(text){
+      try {
+        const sel = document.getElementById('arch-select');
+        const base = BASE(sel ? sel.value : '');
+        const archCap = CAP(base);
+        const voices = speechSynthesis.getVoices();
+        const saved  = LS.get('infodose:voices', {}) || {};
+        const v = pickVoiceForKey(voices, saved, archCap);
+        if (v) {
+          const u = new SpeechSynthesisUtterance(String(text||''));
+          u.voice = v; speechSynthesis.cancel(); speechSynthesis.speak(u); return;
+        }
+      } catch(e) {}
+      // fallback
+      return _orig2.apply(this, arguments);
+    };
+  }
+
+  // 4) Aguarde a lista de vozes carregar (Safari/iOS especialmente)
+  function boot(){
+    try{ migrateVoices(); }catch(e){}
+    try{ bindVoicesWrap(); }catch(e){}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else { boot(); }
+  // Reaplique migração assim que as vozes chegarem
+  speechSynthesis.onvoiceschanged = function(){ try{ migrateVoices(); }catch(e){} };
+
+})();
+</script>
+  
 </body></html>
