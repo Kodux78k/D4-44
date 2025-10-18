@@ -15,46 +15,10 @@
 
 <!-- PATCH: overlay-guardian-css -->
 
-<!-- ======== ESTILOS ======== -->
-<link rel="stylesheet" href="index.style.css">
-<link rel="stylesheet" href="pwa_overrides.css">
-
-<!-- ======== CONFIG PWA ======== -->
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon-192.png" sizes="192x192" type="image/png">
-<link rel="icon" href="icon-512.png" sizes="512x512" type="image/png">
-<meta name="theme-color" content="#0b0f14">
-
-<!-- ======== CSS OPCIONAL ======== -->
-<!-- Caso você queira um CSS personalizado salvo no LS -->
-<link rel="stylesheet" href="uno_showcase_patch.css">
 
 
-<!-- ======== SCRIPTS PRINCIPAIS ======== -->
-<script src="dual_multiagent_v1.js"></script>
-<script src="dual_multiagent_v12_locked.js"></script>
-<script src="openrouter_hardlock_model_v1.js"></script>
-<script src="uno_showcase_patch.js"></script>
 
-<!-- ======== SCRIPTS 3D / LIB ======== -->
-<script src="./lib/UNO_patch_arch3d_bloom_loader.js"></script>
-<script src="./lib/UNO_patch_arch3d_particles.js"></script>
-<script src="./lib/dual_multiagent_v12_kobllux_locked.js"></script>
 
-<!-- ======== SCRIPT PRINCIPAL DO APP ======== -->
-<script src="dual_infodose_script_clean.js"></script>
-<script src="infodose_core_patch.js"></script>
-
-<!-- ======== SERVICE WORKER ======== -->
-<script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('sw.js').catch(function(err) {
-        console.error('ServiceWorker registration failed:', err);
-      });
-    });
-  }
-</script>
 
 
 <!-- OVERLAY: background-only patch -->
@@ -62,13 +26,7 @@
 
 
 
-    <!-- Load extracted styles -->
-    <link rel="stylesheet" href="dual_infodose_style.css">
-    <!-- PWA overrides: ensure consistent margins/paddings across sessions -->
-    <link rel="stylesheet" href="pwa_overrides.css">
-    <!-- Web App Manifest -->
-   <!-- <link rel="manifest" href="manifest.json">-->
-  </head>
+<link href="style_separated.css" rel="stylesheet"/></head>
 <body>
 <!-- Splash screen displayed on initial load -->
 <!-- Som do splash: coloque seu arquivo de áudio na pasta especificada e ajuste o caminho abaixo.
@@ -1125,17 +1083,4 @@
 
 <!-- === /UNO • ORB dos Arquétipos (Injected) === -->
 
-  <!-- Load extracted JavaScript -->
-  <script src="dual_infodose_script.js"></script>
-  <!-- Register the service worker for PWA support -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('sw.js').catch(function(err) {
-          console.error('ServiceWorker registration failed:', err);
-        });
-      });
-    }
-  </script>
-  </body>
-</html>
+<script src="script_separated.js"></script></body></html>
