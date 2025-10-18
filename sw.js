@@ -5,6 +5,8 @@ const URLS_TO_CACHE = [
   '/index.html',
   '/dual_infodose_style.css',
   '/dual_infodose_script.js',
+  '/infodose_core_patch.js',
+  '/infodose_core_v1.json',
   '/pwa_overrides.css',
   '/manifest.json',
   '/icon-192.png',
