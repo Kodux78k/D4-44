@@ -3927,22 +3927,3 @@ push('assistant','Pronto','<p>Chat 13-Blocos iniciado. Escreva sua intenção e 
     });
   }
 })();
-
-
-/* === Layout Pads Idempotent === */
-function applyLayoutPads(){
-  try {
-    const root = document.documentElement;
-    // read tokens if present, fallback to sweep defaults
-    const padX = getComputedStyle(root).getPropertyValue('--view-pad-x') || '14px';
-    const padY = getComputedStyle(root).getPropertyValue('--view-pad-y') || '12px';
-    const gap  = getComputedStyle(root).getPropertyValue('--grid-gap') || '12px';
-    const card = getComputedStyle(root).getPropertyValue('--card-pad') || '12px';
-    document.querySelectorAll('.view').forEach(n=>n.style.padding = `${padY.trim()} ${padX.trim()}`);
-    document.querySelectorAll('.grid').forEach(n=>n.style.gap = gap.trim());
-    document.querySelectorAll('.card').forEach(n=>n.style.padding = card.trim());
-  } catch(e){ console.warn('applyLayoutPads()', e); }
-}
-
-document.addEventListener('DOMContentLoaded', applyLayoutPads);
-window.addEventListener('resize', applyLayoutPads);
