@@ -1,0 +1,125 @@
+{
+  "id": "infodose.core.v1",
+  "name": "Infodose — Espaço da Mente (12 arquétipos)",
+  "version": "1.0.0",
+  "type": "orb-pack",
+  "archetypes": [
+    {
+      "id": "atlas",
+      "label": "Atlas",
+      "colorA": "#ff52e5",
+      "colorB": "#00c5e5",
+      "voice": "Daniel",
+      "icon": "builtin:atlas",
+      "orbOverlay": {
+        "alpha": 0.22,
+        "blend": "multiply"
+      }
+    },
+    {
+      "id": "nova",
+      "label": "Nova",
+      "colorA": "#ff78ff",
+      "colorB": "#78fff6",
+      "voice": "Joana",
+      "icon": "builtin:nova",
+      "orbOverlay": {
+        "alpha": 0.22,
+        "blend": "screen"
+      }
+    },
+    {
+      "id": "vitalis",
+      "label": "Vitalis",
+      "colorA": "#8cfbff",
+      "colorB": "#74ffbf",
+      "voice": "Eddy",
+      "icon": "builtin:vitalis"
+    },
+    {
+      "id": "pulse",
+      "label": "Pulse",
+      "colorA": "#ff4d6d",
+      "colorB": "#ffb38a",
+      "voice": "FrenchMale",
+      "icon": "builtin:pulse"
+    },
+    {
+      "id": "artemis",
+      "label": "Artemis",
+      "colorA": "#ffd866",
+      "colorB": "#ff6b6b",
+      "voice": "ItalianMale",
+      "icon": "builtin:artemis"
+    },
+    {
+      "id": "serena",
+      "label": "Serena",
+      "colorA": "#7ad7f0",
+      "colorB": "#a4f0d1",
+      "voice": "Rishi",
+      "icon": "builtin:serena"
+    },
+    {
+      "id": "kaos",
+      "label": "Kaos",
+      "colorA": "#ff845e",
+      "colorB": "#ffc15e",
+      "voice": "Reed",
+      "icon": "builtin:kaos"
+    },
+    {
+      "id": "genus",
+      "label": "Genus",
+      "colorA": "#a48cf2",
+      "colorB": "#6ef3ff",
+      "voice": "Grandpa",
+      "icon": "builtin:genus"
+    },
+    {
+      "id": "lumine",
+      "label": "Lumine",
+      "colorA": "#b1ffea",
+      "colorB": "#a48cf2",
+      "voice": "Flo",
+      "icon": "builtin:lumine"
+    },
+    {
+      "id": "rhea",
+      "label": "Rhea",
+      "colorA": "#ff9ad5",
+      "colorB": "#7ad7f0",
+      "voice": "Luciana",
+      "icon": "builtin:rhea"
+    },
+    {
+      "id": "solus",
+      "label": "Solus",
+      "colorA": "#ffe58a",
+      "colorB": "#b1ffea",
+      "voice": "Moira",
+      "icon": "builtin:solus"
+    },
+    {
+      "id": "aion",
+      "label": "Aion",
+      "colorA": "#a0b1ff",
+      "colorB": "#ff9ad5",
+      "voice": "Shelley",
+      "icon": "builtin:aion"
+    }
+  ],
+  "spaceOfMind": {
+    "grid": true,
+    "bpm": 72,
+    "shaders": [
+      "blue1",
+      "nebula"
+    ],
+    "sliders": {
+      "particles": 0.6,
+      "bloom": 0.35,
+      "ripple": 0.4
+    }
+  }
+}

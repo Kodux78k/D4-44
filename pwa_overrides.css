@@ -1,0 +1,30 @@
+/*
+ * PWA override styles for Hub UNO.
+ *
+ * This stylesheet normalises margin and padding on key layout containers. During testing
+ * some sections would reset their spacing after navigation or reload. These rules
+ * ensure consistent spacing across all views and session components without
+ * modifying the original, minified CSS. The `!important` flag is used to
+ * override any competing declarations in the bundled stylesheet.
+ */
+
+/* Always apply padding to view containers */
+.view {
+  padding: 12px 14px !important;
+}
+
+/* Ensure cards and grids keep a small gap from adjacent content */
+.grid {
+  margin-top: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.card {
+  margin-bottom: 12px !important;
+}
+
+/* Avoid zero margin on session wrappers */
+#sessionsAnchor .session,
+.session {
+  margin-block: 12px !important;
+}
