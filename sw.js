@@ -1,13 +1,11 @@
 // A simple service worker for the Hub UNO PWA.
-const CACHE_NAME = 'hub-uno-cache-v1';
+const CACHE_NAME = 'hub-uno-cache-v3';
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
-  '/dual_infodose_style.css',
-  '/dual_infodose_script.js',
-  '/infodose_core_patch.js',
-  '/infodose_core_v1.json',
-  '/pwa_overrides.css',
+  '/style.css',
+  '/script.js',
+  
   '/manifest.json',
   '/icon-192.png',
   '/icon-512.png'
